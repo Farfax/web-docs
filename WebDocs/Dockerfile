@@ -25,6 +25,7 @@ ARG PROJECT_NAME
 ARG CONFIG_MODE
 RUN dotnet tool install --global dotnet-ef
 RUN dotnet ef database update
+RUN export PATH="$PATH:/root/.dotnet/tools"
 RUN dotnet publish "$PROJECT_NAME.csproj" -c $CONFIG_MODE -o /app -r $PROJECT_PLATFORM
 
 FROM runtime AS final
