@@ -1,4 +1,4 @@
 #!/bin/bash
-cd ../WebDocs
+cd WebDocs
 docker build -t $IMAGE_NAME .
-cd ../ops
+cd ../
