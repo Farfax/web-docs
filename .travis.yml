@@ -7,35 +7,29 @@ env:
   - CI_USER=deploy
   - KEY_FILE=deploy_key
   - CONTAINER_NAME=webdoc
-
 branches:
   only:
   - master
-
 services:
 - docker
-
 stages:
-  - prepare
-  - build
-  - publish
-  - deploy
-
+- prepare
+- build
+- publish
+- deploy
 jobs:
   include:
-    - name: "Prepare environment"
-      stage: "prepare"
-      script: 'ops/prepare.sh'
-
-    - name: "Build application"
-      stage: "build"
-      script: 'ops/build.sh'
-
-    - name: "Publish artifacts on server"
-      stage: "publish"
-      script: 'ops/publish.sh'
-
-    - name: "Deploy application on server"
-      stage: "deploy"
-      script:
-        - 'ssh -T -i ./$KEY_FILE -p $SERVER_PORT $CI_USER@$SERVER_IP "bash -s" < ops/deploy.sh $CONTAINER_NAME $IMAGE_NAME'
+  - name: Prepare environment
+    stage: prepare
+    script: ops/prepare.sh
+  - name: Build application
+    stage: build
+    script: ops/build.sh
+  - name: Publish artifacts on server
+    stage: publish
+    script: ops/publish.sh
+  - name: Deploy application on server
+    stage: deploy
+    script:
+    - ssh -T -i ./$KEY_FILE -p $SERVER_PORT $CI_USER@$SERVER_IP "bash -s" < ops/deploy.sh
+      $CONTAINER_NAME $IMAGE_NAME
