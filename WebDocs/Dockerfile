@@ -36,7 +36,7 @@ ENV ASPNETCORE_URLS=http://+:$PORT
 ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT
 WORKDIR /app
 COPY --from=publish /app .
-COPY out.pf* /app/cert.pfx
+COPY out.pfx /app/cert.pfx
 COPY --from=publish src/Database.db /app/Database.db
 RUN adduser -D aspnetcore
 RUN chown aspnetcore:aspnetcore -R /app
