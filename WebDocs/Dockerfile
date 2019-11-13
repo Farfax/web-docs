@@ -37,7 +37,7 @@ ENV ASPNETCORE_ENVIRONMENT=$ASPNETCORE_ENVIRONMENT
 WORKDIR /app
 COPY --from=publish /app .
 COPY out.pf* /app/cert.pfx
-COPY --from=publish Database.db /app/Database.db
+COPY --from=publish src/Database.db /app/Database.db
 RUN adduser -D aspnetcore
 RUN chown aspnetcore:aspnetcore -R /app
 USER aspnetcore
